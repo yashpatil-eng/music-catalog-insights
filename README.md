@@ -7,7 +7,7 @@ insights about their taste.
 Built for the LedgersCFO Software Development Intern take-home assignment.
 
 - **Backend:** Java 17 / Spring Boot 3, PostgreSQL, Spring Data JPA, Spring Security (JWT)
-- **Frontend:** Next.js 14 (App Router), React 18, Tailwind CSS, Recharts
+- **Frontend:** React 18 + Vite, TypeScript, React Router, Tailwind CSS, Recharts
 - **Third-party API:** [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/) (no key required)
 
 ---
@@ -31,8 +31,8 @@ query, but the library schema and analytics logic assume album-shaped data.
 
 ```
 ┌─────────────┐        JWT-authenticated REST         ┌──────────────────┐
-│   Next.js   │ ─────────────────────────────────────▶│   Spring Boot    │
-│  Frontend   │◀───────────────────────────────────── │     Backend      │
+│  React +    │ ─────────────────────────────────────▶│   Spring Boot    │
+│  Vite SPA   │◀───────────────────────────────────── │     Backend      │
 └─────────────┘                                        └──────────────────┘
                                                                │  │
                                                    ┌───────────┘  └───────────┐
@@ -184,7 +184,7 @@ Run tests: `mvn test`
 ### Frontend
 ```bash
 cd frontend
-cp .env.local.example .env.local   # set NEXT_PUBLIC_API_BASE_URL if backend isn't on localhost:8080
+cp .env.local.example .env.local   # set VITE_API_BASE_URL if backend isn't on localhost:8080
 npm install
 npm run dev
 # Frontend now running on http://localhost:3000
@@ -197,7 +197,9 @@ npm run dev
   (your Vercel URL), and optionally `ANTHROPIC_API_KEY`.
 - **Database:** a managed Postgres instance (Render Postgres, Railway Postgres,
   Neon, or Supabase all work — the app just needs a JDBC URL).
-- **Frontend:** Vercel. Set `NEXT_PUBLIC_API_BASE_URL` to the deployed backend URL.
+- **Frontend:** Vercel (or Netlify) as a static build — build command `npm run build`,
+  output directory `dist`. Set `VITE_API_BASE_URL` to the deployed backend URL as
+  an environment variable.
 
 ## 9. Trade-offs & what I'd add with more time
 
