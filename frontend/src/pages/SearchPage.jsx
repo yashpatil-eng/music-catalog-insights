@@ -1,13 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import { api, ApiError, ItunesResult } from '../lib/api';
+import { api, ApiError } from '../lib/api';
 
-function AlbumCard({ result, onSave, saved, saving }: {
-  result: ItunesResult;
-  onSave: () => void;
-  saved: boolean;
-  saving: boolean;
-}) {
+function AlbumCard({ result, onSave, saved, saving }) {
   return (
     <div className="card flex flex-col gap-3">
       {result.artworkUrl100 ? (
@@ -43,13 +38,13 @@ function AlbumCard({ result, onSave, saved, saving }: {
 export default function SearchPage() {
   const [query, setQuery] = useState('');
   const [type, setType] = useState('album');
-  const [results, setResults] = useState<ItunesResult[]>([]);
+  const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
-  const [savingId, setSavingId] = useState<number | null>(null);
+  const [error, setError] = useState(null);
+  const [savedIds, setSavedIds] = useState(new Set());
+  const [savingId, setSavingId] = useState(null);
 
-  const runSearch = useCallback(async (q: string, t: string) => {
+  const runSearch = useCallback(async (q, t) => {
     if (!q.trim()) {
       setResults([]);
       return;
@@ -66,13 +61,13 @@ export default function SearchPage() {
     }
   }, []);
 
-  const debouncedSearch = useDebouncedCallback((q: string, t: string) => runSearch(q, t), 400);
+  const debouncedSearch = useDebouncedCallback((q, t) => runSearch(q, t), 400);
 
   useEffect(() => {
     debouncedSearch(query, type);
   }, [query, type, debouncedSearch]);
 
-  async function handleSave(result: ItunesResult) {
+  async function handleSave(result) {
     const catalogId = result.collectionId || result.trackId || result.artistId;
     if (!catalogId) return;
     setSavingId(catalogId);

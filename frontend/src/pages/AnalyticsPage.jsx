@@ -14,11 +14,11 @@ import {
   Line,
   Legend,
 } from 'recharts';
-import { api, ApiError, AnalyticsResponse, AiInsightResponse } from '../lib/api';
+import { api, ApiError } from '../lib/api';
 
 const COLORS = ['#7c5cff', '#3ddc97', '#ff8a5c', '#5cc8ff', '#ffd45c', '#ff5c8a', '#9d5cff', '#5cffcf'];
 
-function ChartCard({ title, children }: { title: string; children: React.ReactNode }) {
+function ChartCard({ title, children }) {
   return (
     <div className="card">
       <h3 className="mb-4 font-medium text-slate-200">{title}</h3>
@@ -32,11 +32,11 @@ function EmptyChart() {
 }
 
 export default function AnalyticsPage() {
-  const [analytics, setAnalytics] = useState<AnalyticsResponse | null>(null);
-  const [insight, setInsight] = useState<AiInsightResponse | null>(null);
+  const [analytics, setAnalytics] = useState(null);
+  const [insight, setInsight] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isInsightLoading, setIsInsightLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     (async () => {

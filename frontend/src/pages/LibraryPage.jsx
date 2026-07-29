@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api, ApiError, LibraryItem } from '../lib/api';
+import { api, ApiError } from '../lib/api';
 
-function StarRating({ value, onChange }: { value: number | null; onChange: (v: number) => void }) {
+function StarRating({ value, onChange }) {
   return (
     <div className="flex gap-1">
       {[1, 2, 3, 4, 5].map((n) => (
@@ -20,10 +20,10 @@ function StarRating({ value, onChange }: { value: number | null; onChange: (v: n
 }
 
 export default function LibraryPage() {
-  const [items, setItems] = useState<LibraryItem[]>([]);
+  const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [notesDraft, setNotesDraft] = useState<Record<number, string>>({});
+  const [error, setError] = useState(null);
+  const [notesDraft, setNotesDraft] = useState({});
 
   async function load() {
     setIsLoading(true);
@@ -42,7 +42,7 @@ export default function LibraryPage() {
     load();
   }, []);
 
-  async function handleRate(item: LibraryItem, rating: number) {
+  async function handleRate(item, rating) {
     try {
       const updated = await api.updateLibraryItem(item.id, { ...item, userRating: rating });
       setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
@@ -51,7 +51,7 @@ export default function LibraryPage() {
     }
   }
 
-  async function handleSaveNotes(item: LibraryItem) {
+  async function handleSaveNotes(item) {
     const notes = notesDraft[item.id] ?? item.userNotes ?? '';
     try {
       const updated = await api.updateLibraryItem(item.id, { ...item, userNotes: notes });
@@ -61,7 +61,7 @@ export default function LibraryPage() {
     }
   }
 
-  async function handleDelete(id: number) {
+  async function handleDelete(id) {
     try {
       await api.deleteLibraryItem(id);
       setItems((prev) => prev.filter((i) => i.id !== id));

@@ -1,19 +1,11 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStoredEmail, setStoredEmail, setToken } from './api';
 
-interface AuthContextValue {
-  email: string | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  login: (token: string, email: string) => void;
-  logout: () => void;
-}
+const AuthContext = createContext(undefined);
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [email, setEmail] = useState<string | null>(null);
+export function AuthProvider({ children }) {
+  const [email, setEmail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -22,7 +14,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  function login(token: string, userEmail: string) {
+  function login(token, userEmail) {
     setToken(token);
     setStoredEmail(userEmail);
     setEmail(userEmail);
