@@ -6,12 +6,13 @@ insights about their taste.
 
 **Live demo:** https://music-catalog-insights.vercel.app
 **Backend API:** https://music-catalog-insights-backend.onrender.com
-**Note:** the backend is on Render's free tier, so it may take 30-60 seconds to wake up if it's been idle — the first request after inactivity will be slow.
+**Note:** the backend is on Render's free tier, so it may take 30-60 seconds
+to wake up if it's been idle — the first request after inactivity will be slow.
 
 Built for the LedgersCFO Software Development Intern take-home assignment.
 
 - **Backend:** Java 17 / Spring Boot 3, PostgreSQL, Spring Data JPA, Spring Security (JWT)
-- **Frontend:** React 18 + Vite, TypeScript, React Router, Tailwind CSS, Recharts
+- **Frontend:** React 18 + Vite, JavaScript, React Router, Tailwind CSS, Recharts
 - **Third-party API:** [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/) (no key required)
 
 ---
@@ -188,10 +189,11 @@ Run tests: `mvn test`
 ### Frontend
 ```bash
 cd frontend
-cp .env.local.example .env.local   
+cp .env.local.example .env.local   # set VITE_API_BASE_URL if backend isn't on localhost:8080
 npm install
 npm run dev
-
+# Frontend now running on http://localhost:3000
+```
 
 ## 8. Deployment
 
