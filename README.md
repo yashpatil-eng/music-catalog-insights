@@ -17,6 +17,13 @@ Built for the LedgersCFO Software Development Intern take-home assignment.
 
 ---
 
+## Highlights
+
+- Full-stack Java + React project with secure JWT auth and PostgreSQL persistence
+- Responsive mobile-first UI built with Vite, React, Tailwind CSS, and Recharts
+- User-specific library, ratings, note history, and analytics dashboards
+- Optional AI insight layer with fallback rules-based summaries and music recommendations
+
 ## 1. Entity choice: Albums
 
 I chose **Albums** as the focus entity (`entity=album` on the iTunes API) because:

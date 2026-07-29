@@ -30,10 +30,10 @@ public class AuthService {
         if (userRepository.existsByEmail(request.email())) {
             throw new DuplicateResourceException("An account with this email already exists");
         }
-        User user = new User(request.email(), passwordEncoder.encode(request.password()));
+        User user = new User(request.email(), request.name(), passwordEncoder.encode(request.password()));
         userRepository.save(user);
         String token = jwtService.generateToken(user.getEmail());
-        return new AuthResponse(token, user.getEmail());
+        return new AuthResponse(token, user.getEmail(), user.getName());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -45,6 +45,6 @@ public class AuthService {
         }
 
         String token = jwtService.generateToken(user.getEmail());
-        return new AuthResponse(token, user.getEmail());
+        return new AuthResponse(token, user.getEmail(), user.getName());
     }
 }

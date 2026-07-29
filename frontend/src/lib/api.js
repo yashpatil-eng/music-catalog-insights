@@ -26,6 +26,15 @@ export function setStoredEmail(email) {
   else localStorage.removeItem('mci_email');
 }
 
+export function getStoredName() {
+  return localStorage.getItem('mci_name');
+}
+
+export function setStoredName(name) {
+  if (name) localStorage.setItem('mci_name', name);
+  else localStorage.removeItem('mci_name');
+}
+
 async function request(path, options = {}) {
   const token = getToken();
   const headers = {
@@ -55,10 +64,10 @@ async function request(path, options = {}) {
 
 // --- API calls ---
 export const api = {
-  register: (email, password) =>
+  register: (name, email, password) =>
     request('/api/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     }),
 
   login: (email, password) =>

@@ -1,3 +1,3 @@
 package com.ledgerscfo.musiccatalog.dto;
 
-public record AuthResponse(String token, String email) {}
+public record AuthResponse(String token, String email, String name) {}

@@ -15,6 +15,9 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private String passwordHash;
 
     @Column(nullable = false, updatable = false)
@@ -22,8 +25,9 @@ public class User {
 
     public User() {}
 
-    public User(String email, String passwordHash) {
+    public User(String email, String name, String passwordHash) {
         this.email = email;
+        this.name = name;
         this.passwordHash = passwordHash;
     }
 
@@ -32,6 +36,9 @@ public class User {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }

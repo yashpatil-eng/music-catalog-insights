@@ -4,6 +4,7 @@ import { api, ApiError } from '../lib/api';
 import { useAuth } from '../lib/auth-context';
 
 export default function RegisterPage() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -18,8 +19,8 @@ export default function RegisterPage() {
     setFieldErrors({});
     setIsSubmitting(true);
     try {
-      const res = await api.register(email, password);
-      login(res.token, res.email);
+      const res = await api.register(name, email, password);
+      login(res.token, res.email, res.name);
       navigate('/search');
     } catch (err) {
       if (err instanceof ApiError) {
@@ -40,6 +41,18 @@ export default function RegisterPage() {
         <p className="mb-6 text-sm text-slate-400">Start building your personal music library.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm text-slate-300">Name</label>
+            <input
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input"
+              placeholder="Your name"
+            />
+            {fieldErrors.name && <p className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>}
+          </div>
           <div>
             <label className="mb-1 block text-sm text-slate-300">Email</label>
             <input

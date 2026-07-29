@@ -17,7 +17,7 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const res = await api.login(email, password);
-      login(res.token, res.email);
+      login(res.token, res.email, res.name);
       navigate('/search');
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.');

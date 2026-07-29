@@ -36,17 +36,41 @@ export default function Navbar() {
 
           {isAuthenticated ? (
             <div className="ml-2 flex items-center gap-3 border-l border-white/10 pl-3">
-              <span className="hidden text-sm text-slate-400 sm:inline">{email}</span>
+              <span className="hidden text-sm text-slate-400 sm:inline">Hi, {email}</span>
               <button onClick={logout} className="btn-secondary text-sm">
                 Log out
               </button>
             </div>
           ) : (
             <div className="ml-2 flex items-center gap-2">
-              <Link to="/login" className="btn-secondary text-sm">
+              <Link
+                to="/"
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  location.pathname === '/'
+                    ? 'bg-white/10 text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Home
+              </Link>
+              <Link
+                to="/login"
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  location.pathname === '/login'
+                    ? 'bg-white/10 text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
                 Log in
               </Link>
-              <Link to="/register" className="btn-primary text-sm">
+              <Link
+                to="/register"
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  location.pathname === '/register'
+                    ? 'bg-white/10 text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
                 Sign up
               </Link>
             </div>

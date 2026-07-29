@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './lib/auth-context';
 import Navbar from './components/Navbar';
 import RequireAuth from './components/RequireAuth';
+import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchPage from './pages/SearchPage';
@@ -14,7 +15,7 @@ export default function App() {
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <Routes>
-          <Route path="/" element={<Navigate to="/search" replace />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route
@@ -41,7 +42,7 @@ export default function App() {
               </RequireAuth>
             }
           />
-          <Route path="*" element={<Navigate to="/search" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </AuthProvider>
