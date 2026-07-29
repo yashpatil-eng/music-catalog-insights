@@ -1,9 +1,6 @@
-'use client';
-
 import { useState, useEffect, useCallback } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import RequireAuth from '@/components/RequireAuth';
-import { api, ApiError, ItunesResult } from '@/lib/api';
+import { api, ApiError, ItunesResult } from '../lib/api';
 
 function AlbumCard({ result, onSave, saved, saving }: {
   result: ItunesResult;
@@ -14,7 +11,6 @@ function AlbumCard({ result, onSave, saved, saving }: {
   return (
     <div className="card flex flex-col gap-3">
       {result.artworkUrl100 ? (
-        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={result.artworkUrl100.replace('100x100', '300x300')}
           alt={result.collectionName || result.trackName || 'Artwork'}
@@ -99,53 +95,51 @@ export default function SearchPage() {
   }
 
   return (
-    <RequireAuth>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-semibold">Search the catalog</h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Powered by the iTunes Search API. Find albums, songs, or artists and save them to your library.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <input
-            className="input flex-1"
-            placeholder="Search for an artist, album, or song…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoFocus
-          />
-          <select value={type} onChange={(e) => setType(e.target.value)} className="input sm:w-40">
-            <option value="album">Albums</option>
-            <option value="song">Songs</option>
-            <option value="artist">Artists</option>
-          </select>
-        </div>
-
-        {error && <p className="text-sm text-red-400">{error}</p>}
-
-        {isLoading && <p className="text-sm text-slate-400">Searching…</p>}
-
-        {!isLoading && query && results.length === 0 && !error && (
-          <p className="text-sm text-slate-400">No results found. Try a different search.</p>
-        )}
-
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {results.map((r) => {
-            const catalogId = r.collectionId || r.trackId || r.artistId || 0;
-            return (
-              <AlbumCard
-                key={catalogId}
-                result={r}
-                onSave={() => handleSave(r)}
-                saved={savedIds.has(catalogId)}
-                saving={savingId === catalogId}
-              />
-            );
-          })}
-        </div>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-semibold">Search the catalog</h1>
+        <p className="mt-1 text-sm text-slate-400">
+          Powered by the iTunes Search API. Find albums, songs, or artists and save them to your library.
+        </p>
       </div>
-    </RequireAuth>
+
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <input
+          className="input flex-1"
+          placeholder="Search for an artist, album, or song…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          autoFocus
+        />
+        <select value={type} onChange={(e) => setType(e.target.value)} className="input sm:w-40">
+          <option value="album">Albums</option>
+          <option value="song">Songs</option>
+          <option value="artist">Artists</option>
+        </select>
+      </div>
+
+      {error && <p className="text-sm text-red-400">{error}</p>}
+
+      {isLoading && <p className="text-sm text-slate-400">Searching…</p>}
+
+      {!isLoading && query && results.length === 0 && !error && (
+        <p className="text-sm text-slate-400">No results found. Try a different search.</p>
+      )}
+
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {results.map((r) => {
+          const catalogId = r.collectionId || r.trackId || r.artistId || 0;
+          return (
+            <AlbumCard
+              key={catalogId}
+              result={r}
+              onSave={() => handleSave(r)}
+              saved={savedIds.has(catalogId)}
+              saving={savingId === catalogId}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }

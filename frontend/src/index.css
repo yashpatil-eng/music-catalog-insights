@@ -7,8 +7,11 @@
 }
 
 body {
+  background-color: #12131a;
   background-image: radial-gradient(circle at 20% -10%, rgba(124, 92, 255, 0.15), transparent 40%),
     radial-gradient(circle at 80% 0%, rgba(61, 220, 151, 0.1), transparent 35%);
+  color: #f1f5f9;
+  min-height: 100vh;
 }
 
 .card {

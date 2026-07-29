@@ -1,7 +1,5 @@
-'use client';
-
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { getStoredEmail, setStoredEmail, setToken } from './api';
 
 interface AuthContextValue {
@@ -17,7 +15,7 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [email, setEmail] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setEmail(getStoredEmail());
@@ -34,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setToken(null);
     setStoredEmail(null);
     setEmail(null);
-    router.push('/login');
+    navigate('/login');
   }
 
   return (

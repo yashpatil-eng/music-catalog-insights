@@ -1,8 +1,5 @@
-'use client';
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../lib/auth-context';
 
 const links = [
   { href: '/search', label: 'Search' },
@@ -12,12 +9,12 @@ const links = [
 
 export default function Navbar() {
   const { isAuthenticated, email, logout } = useAuth();
-  const pathname = usePathname();
+  const location = useLocation();
 
   return (
     <header className="border-b border-white/10 bg-ink/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href={isAuthenticated ? '/search' : '/login'} className="text-lg font-semibold tracking-tight">
+        <Link to={isAuthenticated ? '/search' : '/login'} className="text-lg font-semibold tracking-tight">
           🎵 Music Catalog <span className="text-accent">Insights</span>
         </Link>
 
@@ -26,9 +23,9 @@ export default function Navbar() {
             links.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-                  pathname === link.href
+                  location.pathname === link.href
                     ? 'bg-white/10 text-white'
                     : 'text-slate-400 hover:text-white'
                 }`}
@@ -46,10 +43,10 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="ml-2 flex items-center gap-2">
-              <Link href="/login" className="btn-secondary text-sm">
+              <Link to="/login" className="btn-secondary text-sm">
                 Log in
               </Link>
-              <Link href="/register" className="btn-primary text-sm">
+              <Link to="/register" className="btn-primary text-sm">
                 Sign up
               </Link>
             </div>

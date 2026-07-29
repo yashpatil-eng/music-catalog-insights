@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 export class ApiError extends Error {
   status: number;
@@ -12,23 +12,19 @@ export class ApiError extends Error {
 }
 
 function getToken(): string | null {
-  if (typeof window === 'undefined') return null;
   return localStorage.getItem('mci_token');
 }
 
 export function setToken(token: string | null) {
-  if (typeof window === 'undefined') return;
   if (token) localStorage.setItem('mci_token', token);
   else localStorage.removeItem('mci_token');
 }
 
 export function getStoredEmail(): string | null {
-  if (typeof window === 'undefined') return null;
   return localStorage.getItem('mci_email');
 }
 
 export function setStoredEmail(email: string | null) {
-  if (typeof window === 'undefined') return;
   if (email) localStorage.setItem('mci_email', email);
   else localStorage.removeItem('mci_email');
 }

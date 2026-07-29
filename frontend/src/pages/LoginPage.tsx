@@ -1,10 +1,7 @@
-'use client';
-
 import { useState, FormEvent } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { api, ApiError } from '@/lib/api';
-import { useAuth } from '@/lib/auth-context';
+import { Link, useNavigate } from 'react-router-dom';
+import { api, ApiError } from '../lib/api';
+import { useAuth } from '../lib/auth-context';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,7 +9,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
-  const router = useRouter();
+  const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -21,7 +18,7 @@ export default function LoginPage() {
     try {
       const res = await api.login(email, password);
       login(res.token, res.email);
-      router.push('/search');
+      navigate('/search');
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.');
     } finally {
@@ -68,7 +65,7 @@ export default function LoginPage() {
 
         <p className="mt-6 text-center text-sm text-slate-400">
           Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-accent hover:underline">
+          <Link to="/register" className="text-accent hover:underline">
             Sign up
           </Link>
         </p>
