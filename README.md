@@ -96,8 +96,9 @@ schema-flexible data in this domain.
 | updated_at | timestamp | |
 
 `(user_id, apple_catalog_id)` has a unique constraint so the same album can't be
-saved twice by the same user, enforced both at the DB level and in
-`LibraryService` (returns a friendly 409 instead of a raw constraint violation).
+saved twice by the same user. This is enforced at the DB level via the JPA entity
+metadata and also guarded in `LibraryService` (returns a friendly 409 instead of
+a raw constraint violation).
 
 ## 4. REST API
 
@@ -111,6 +112,8 @@ saved twice by the same user, enforced both at the DB level and in
 | PUT | `/api/library/{id}` | Yes | Update rating/notes/metadata |
 | DELETE | `/api/library/{id}` | Yes | Remove an item |
 | GET | `/api/analytics` | Yes | Aggregated stats for charts |
+
+> Note: `PUT` is used here for simplicity and to keep the request contract straightforward. A `PATCH` endpoint would be a more production-friendly choice for partial updates and smaller payloads.
 | GET | `/api/ai/insights` | Yes | AI-generated summary + recommendations |
 
 Auth: `Authorization: Bearer <token>` header. `/api/auth/**` and `/api/search`
