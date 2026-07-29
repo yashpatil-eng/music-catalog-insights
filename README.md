@@ -4,8 +4,8 @@ A full-stack app that lets a user search the iTunes catalog, save albums to a
 personal library, explore analytics on that library, and get AI-generated
 insights about their taste.
 
-**Live demo:** https://music-catalog-insights.vercel.app
-**Backend API:** https://music-catalog-insights-backend.onrender.com
+**Live demo:** https://music-catalog-insights.vercel.app 
+**Backend API:** https://music-catalog-insights-backend.onrender.com 
 **Note:** the backend is on Render's free tier, so it may take 30-60 seconds
 to wake up if it's been idle — the first request after inactivity will be slow.
 
